@@ -19,41 +19,39 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button btnRegister;
-    private EditText editTextEmail;
-    private EditText editTextPassword;
-    private TextView textViewSignIn;
-    private ProgressDialog progressDialog;
-    private FirebaseAuth firebaseAuth;
+    private Button mBtnRegister;
+    private EditText mEditTextEmail;
+    private EditText mEditTextPassword;
+    private TextView mTextViewSignIn;
+    private FirebaseAuth mFirebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        if(firebaseAuth.getCurrentUser() != null){
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        if(mFirebaseAuth.getCurrentUser() != null){
             finish();
             startActivity(new Intent(this, HomeActivity.class));
         }
 
-        btnRegister = (Button) findViewById(R.id.btnRegister);
-        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
-        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
-        textViewSignIn = (TextView) findViewById(R.id.textViewSignIn);
-        progressDialog = new ProgressDialog(this);
+        mBtnRegister = (Button) findViewById(R.id.btnRegister);
+        mEditTextEmail = (EditText) findViewById(R.id.editTextEmail);
+        mEditTextPassword = (EditText) findViewById(R.id.editTextPassword);
+        mTextViewSignIn = (TextView) findViewById(R.id.textViewSignIn);
 
-        btnRegister.setOnClickListener(this);
-        textViewSignIn.setOnClickListener(this);
+        mBtnRegister.setOnClickListener(this);
+        mTextViewSignIn.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
 
-        if(view == btnRegister){
+        if(view == mBtnRegister){
             registerUser(view);
         }
-        if(view  == textViewSignIn){
+        if(view  == mTextViewSignIn){
             finish();
             startActivity(new Intent(getApplicationContext(),LoginActivity.class));
         }
@@ -61,8 +59,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //Method will register the user into the system
     private void registerUser(View view){
 
-        String email = editTextEmail.getText().toString().trim();
-        String password = editTextPassword.getText().toString().trim();
+        String email = mEditTextEmail.getText().toString().trim();
+        String password = mEditTextPassword.getText().toString().trim();
 
         if(TextUtils.isEmpty(email)){
             //email is empty
@@ -75,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
-        firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        mFirebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
@@ -84,10 +82,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     startActivity(new Intent(getApplicationContext(),HomeActivity.class));
                 }
                 else{
-                    Toast.makeText(getApplicationContext(),"Could not register. Please try again",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Could not register."+task.getException().getMessage(),Toast.LENGTH_LONG).show();
                 }
             }
         });
-
     }
 }

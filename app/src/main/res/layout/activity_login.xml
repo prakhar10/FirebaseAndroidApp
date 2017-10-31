@@ -11,15 +11,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="116dp">
+        tools:layout_editor_absoluteY="70dp">
 
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="User Login"
-            android:textSize="25dp"
             android:textAlignment="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:textSize="25dp" />
 
         <EditText
             android:id="@+id/editTextEmail"
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:hint="Password"
-            ></EditText>
+            android:inputType="textPassword"></EditText>
 
         <Button
             android:id="@+id/btnLogin"
@@ -43,14 +43,20 @@
             android:layout_margin="20dp"
             android:text="Login" />
 
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/btnGoogleSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="130dp"
+            android:layout_marginBottom="10dp"/>
+
         <TextView
             android:id="@+id/textViewSignUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Don't have an account? Sign Up here"
-            android:textAlignment="center"
-
-            ></TextView>
+            android:textAlignment="center">
+        </TextView>
 
 
     </LinearLayout>
